@@ -24,9 +24,9 @@ int first_come_first_serve(vector<PCB> v, int context_switch = 0)
     cout << '\n';
     return time;
 }
-void shortest_job_first(vector<PCB> &v, int context_switch = 0)
+void shortest_job_first(vector<PCB> v, int context_switch = 0)
 {
 }
-void round_robin(int quantum, vector<PCB> &v, int context_switch = 0)
+void round_robin(int quantum, vector<PCB> v, int context_switch = 0)
 {
 }
