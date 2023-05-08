@@ -18,11 +18,20 @@ int main()
 
     sort_on_arrival_time_then_id(v);
 
-    // Start from FCFS algorithm
+    // FCFS algorithm
+    cout << "FCFS ----------------------------------\n";
     cout << "Gantt Chart => ";
-    int end_of_all_processes_time = first_come_first_serve(v);
-    print(v);                                                            // Print the required fields from the PCB
-    print_statistics(v, end_of_all_processes_time, NUMBER_OF_PROCESSES); // Print the statistics
+    pair<int, vector<PCB>> result = first_come_first_serve(v);
+    print(result.second);                                               // Print the required fields from the PCB
+    print_statistics(result.second, result.first, NUMBER_OF_PROCESSES); // Print the statistics
+    cout << "---------------------------------------\n";
 
+    // SJF algorithm
+    cout << "SJF -----------------------------------\n";
+    cout << "Gantt Chart => ";
+    result = shortest_job_first(v);
+    print(result.second);                                               // Print the required fields from the PCB
+    print_statistics(result.second, result.first, NUMBER_OF_PROCESSES); // Print the statistics
+    cout << "---------------------------------------\n";
     return 0;
 }

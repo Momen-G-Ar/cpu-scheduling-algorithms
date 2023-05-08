@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <deque>
 #include "PCB.h"
 
 using namespace std;
@@ -68,6 +69,22 @@ void sort_on_arrival_time_then_id(vector<PCB> &v)
          });
 }
 
+void sort_on_SJF(deque<PCB> &d, int time)
+{
+    sort(begin(d), end(d),
+         [time](PCB a, PCB b)
+         {
+             if (a.arrival_time <= time && b.arrival_time <= time)
+                 return a.cpu_burst <= b.cpu_burst;
+             else if (a.arrival_time <= time)
+                 return true;
+             else if (b.arrival_time <= time)
+                 return false;
+             else
+                 return a.arrival_time <= b.arrival_time;
+         });
+}
+
 // Print the statistics of the PCB
 void print_statistics(vector<PCB> &v, int end_of_all_processes_time, int number_of_processes)
 {
@@ -102,4 +119,25 @@ void handle_processing_in_FCFS(int time, PCB &p)
     p.remaining_burst = 0;
     if (p.response_time == -1)
         p.response_time = p.last_time_in_ready - p.arrival_time;
+}
+
+// To handle the processing of burst time in the SJF
+void handle_processing_in_SJF(int time, PCB &p, vector<PCB> &v)
+{
+    int id = p.id, index = -1;
+    for (int i = 0; i < v.size(); i++)
+    {
+        if (id == v[i].id)
+        {
+            index = i;
+            break;
+        }
+    }
+    v[index].finish_time = time;
+    v[index].turn_around_time = v[index].finish_time - v[index].arrival_time;
+    v[index].waiting_time += (time - v[index].last_time_in_ready - v[index].remaining_burst);
+    v[index].last_time_in_ready = time - v[index].remaining_burst;
+    v[index].remaining_burst = 0;
+    if (v[index].response_time == -1)
+        v[index].response_time = v[index].last_time_in_ready - v[index].arrival_time;
 }
