@@ -13,25 +13,33 @@ vector<PCB> v;
 
 int main()
 {
-    cout << fixed << setprecision(2);
-    read_input(memory_size, page_size, quantum, context_switch, v, NUMBER_OF_PROCESSES, INPUT_FILE_PATH);
-
-    sort_on_arrival_time_then_id(v);
-
+    cout << fixed << setprecision(2);                                                                     // To set 2 decimal points
+    read_input(memory_size, page_size, quantum, context_switch, v, NUMBER_OF_PROCESSES, INPUT_FILE_PATH); // Read the input from the file
     // FCFS algorithm
-    cout << "FCFS ----------------------------------\n";
+    cout << UNDERLINE << RED << "\nFirst Come First Serve" << CLOSE << " <------------------------------------>\n\n";
     cout << "Gantt Chart => ";
-    pair<int, vector<PCB>> result = first_come_first_serve(v);
+    pair<int, vector<PCB>> result = first_come_first_serve(v, context_switch); // Define a variable to take the result of each algorithm
+    cout << '\n';
     print(result.second);                                               // Print the required fields from the PCB
     print_statistics(result.second, result.first, NUMBER_OF_PROCESSES); // Print the statistics
-    cout << "---------------------------------------\n";
+    cout << "-------------------------------------------\n";
 
     // SJF algorithm
-    cout << "SJF -----------------------------------\n";
+    cout << UNDERLINE << RED << "\nShortest Job First" << CLOSE << " <------------------------------------>\n\n";
     cout << "Gantt Chart => ";
-    result = shortest_job_first(v);
+    result = shortest_job_first(v, context_switch);
+    cout << '\n';
     print(result.second);                                               // Print the required fields from the PCB
     print_statistics(result.second, result.first, NUMBER_OF_PROCESSES); // Print the statistics
-    cout << "---------------------------------------\n";
+    cout << "-------------------------------------------\n";
+
+    // RR algorithm
+    cout << UNDERLINE << RED << "\nRound Robin" << CLOSE << " <------------------------------------>\n\n";
+    cout << "Gantt Chart => ";
+    result = round_robin(quantum, v, context_switch);
+    cout << '\n';
+    print(result.second);                                               // Print the required fields from the PCB
+    print_statistics(result.second, result.first, NUMBER_OF_PROCESSES); // Print the statistics
+    cout << "-------------------------------------------\n";
     return 0;
 }
