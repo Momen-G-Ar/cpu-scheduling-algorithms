@@ -1,13 +1,13 @@
 #pragma once
 
 #include <deque>
+
 #include "PCB.h"
 #include "Helpers.h"
-#include <bits/stdc++.h>
-
 
 using namespace std;
 
+// First Come First Serve Algorithm
 pair<int, vector<PCB>> first_come_first_serve(vector<PCB> v, int context_switch = 0)
 {
     sort_on_arrival_time_then_id(v);
@@ -28,6 +28,8 @@ pair<int, vector<PCB>> first_come_first_serve(vector<PCB> v, int context_switch 
     cout << '\n';
     return {time, v};
 }
+
+// Shortest Job First
 pair<int, vector<PCB>> shortest_job_first(vector<PCB> v, int context_switch = 0)
 {
     int time = 0;
@@ -52,6 +54,8 @@ pair<int, vector<PCB>> shortest_job_first(vector<PCB> v, int context_switch = 0)
     cout << '\n';
     return {time, v};
 }
+
+// Round Robin
 pair<int, vector<PCB>> round_robin(int quantum, vector<PCB> v, int context_switch = 0)
 {
     int time = 0;

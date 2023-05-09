@@ -5,6 +5,7 @@
 #include <fstream>
 #include <algorithm>
 #include <deque>
+
 #include "PCB.h"
 
 #define UNDERLINE "\033[4m" // To put underline to the text
@@ -43,7 +44,8 @@ void read_input(int &memory_size, int &page_size, int &quantum, int &context_swi
 // To print the PCB information
 void print(vector<PCB> &v)
 {
-    sort(begin(v), end(v), [](PCB a, PCB b)
+    sort(begin(v), end(v),
+         [](PCB a, PCB b) // Comparator function
          { return a.id <= b.id; });
     for (PCB val : v) // For each for loop to print the PCB information
     {
@@ -63,7 +65,7 @@ void print_statistics(vector<PCB> &v, int end_of_all_processes_time, int number_
     double cpu_utilization = v.size();
     double throughput = 0;
     double execution_time = 0;
-
+    // Calculating the sums of the statistics to find the average
     for (PCB process : v)
     {
         average_turnaround_time += process.turn_around_time;
@@ -72,8 +74,8 @@ void print_statistics(vector<PCB> &v, int end_of_all_processes_time, int number_
     }
     throughput = number_of_processes * 1.0 / end_of_all_processes_time;
     cpu_utilization = 1.0 * execution_time / end_of_all_processes_time;
-    average_turnaround_time /= 5.0;
-    average_waiting_time /= 5.0;
+    average_turnaround_time /= 1.0 * number_of_processes;
+    average_waiting_time /= 1.0 * number_of_processes;
     cout << WHITE << UNDERLINE << "\nRESULTS"
          << CLOSE << WHITE << ":\n"
          << CLOSE
@@ -150,6 +152,7 @@ void handle_processing_in_FCFS(int time, PCB &p)
 // To handle the processing of burst time in the SJF
 void handle_processing_in_SJF(int time, PCB &p, vector<PCB> &v)
 {
+    // For loop to find the index of the process in the vector
     int id = p.id, index = -1;
     for (int i = 0; i < v.size(); i++)
     {
@@ -168,9 +171,11 @@ void handle_processing_in_SJF(int time, PCB &p, vector<PCB> &v)
         v[index].response_time = v[index].last_time_in_ready - v[index].arrival_time;
 }
 
+// To handle the processing of burst time in the RR
 PCB handle_processing_in_RR(int time, PCB &p, vector<PCB> &v, bool last_time, int quantum)
 {
-    PCB ret = p;
+    PCB ret = p; // The variable to be returned
+    // For loop to find the index of the process in the vector
     int id = p.id, index = -1;
     for (int i = 0; i < v.size(); i++)
     {

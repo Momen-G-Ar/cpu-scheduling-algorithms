@@ -1,15 +1,17 @@
 #include <iostream>
 #include <iomanip>
+
 #include "PCB.h"
 #include "Helpers.h"
 #include "Algorithms.h"
 
 using namespace std;
 
-#define NUMBER_OF_PROCESSES 5
-#define INPUT_FILE_PATH "process.txt"
-int memory_size, page_size, quantum, context_switch;
-vector<PCB> v;
+#define NUMBER_OF_PROCESSES 5         // The number of processes
+#define INPUT_FILE_PATH "process.txt" // The input file path
+
+int memory_size, page_size, quantum, context_switch; // The input variables
+vector<PCB> v;                                       // Data structure to store the information of the processes
 
 int main()
 {
