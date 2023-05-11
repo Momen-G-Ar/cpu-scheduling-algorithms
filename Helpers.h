@@ -201,8 +201,7 @@ PCB handle_processing_in_RR(int time, PCB &p, vector<PCB> &v, bool last_time, in
         ret.waiting_time = (time - v[index].last_time_in_ready - v[index].remaining_burst);
 
         v[index].last_time_in_ready = time - v[index].remaining_burst;
-        ret.last_time_in_ready = time - v[index].remaining_burst;
-        ;
+        ret.last_time_in_ready = time - v[index].remaining_burst;        
 
         v[index].remaining_burst -= quantum;
         ret.remaining_burst -= quantum;

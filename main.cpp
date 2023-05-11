@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/*
+    Name : Momin Ghazi Arafa
+    Number : 201016
+*/
+
 #define NUMBER_OF_PROCESSES 5         // The number of processes
 #define INPUT_FILE_PATH "process.txt" // The input file path
 
